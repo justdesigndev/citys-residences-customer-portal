@@ -155,7 +155,7 @@ export default function Home() {
             <Link
               href={item.paths[locale as Locale] as Pathnames}
               locale={locale as Locale}
-              className='w-full h-full xl:w-auto xl:h-full xl:aspect-16/14 2xl:aspect-16/15 3xl:aspect-16/14'
+              className='w-full xl:w-auto xl:h-full aspect-16/10 xl:aspect-16/14 2xl:aspect-16/15 3xl:aspect-16/14'
             >
               <AutoplayVideo playbackId={item.media?.muxSrc} />
             </Link>
