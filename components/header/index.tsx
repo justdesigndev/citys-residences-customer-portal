@@ -31,7 +31,7 @@ export function Header() {
       )}
     >
       <div className='container mx-auto px-8 lg:px-8 flex items-center justify-between h-full z-50 relative py-4'>
-        <Link href='/' locale={locale as Locale} className='block h-full'>
+        <Link href='/' locale={locale as Locale} className='block h-full aspect-square'>
           <Logo className='text-bricky-brick' />
         </Link>
         {pathname !== "/" && (
