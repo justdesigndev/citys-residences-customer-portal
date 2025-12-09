@@ -9,9 +9,15 @@ import { gsap, ScrollTrigger, useGSAP } from "@/components/gsap"
 import { Link } from "@/i18n/navigation"
 import type { Locale, Pathnames } from "@/i18n/routing"
 import { routeConfig } from "@/lib/constants"
-import { cn } from "@/lib/utils"
 
-export function HorizontalScroll() {
+export interface HorizontalScrollProps {
+  /**
+   * Callback when active section changes during horizontal scroll
+   */
+  onSectionChange?: (sectionId: string) => void
+}
+
+export function HorizontalScroll({ onSectionChange }: HorizontalScrollProps) {
   const sectionRef = useRef<HTMLDivElement | null>(null)
   const pinRef = useRef<HTMLDivElement | null>(null)
   const locale = useLocale()
@@ -32,8 +38,6 @@ export function HorizontalScroll() {
 
       gsap.registerPlugin(ScrollTrigger)
 
-      console.log(pin.scrollWidth, document.documentElement.clientWidth)
-
       const containerAnimation = gsap.to(pin, {
         x: () => -(pin.scrollWidth - document.documentElement.clientWidth),
         ease: "none",
@@ -47,17 +51,23 @@ export function HorizontalScroll() {
         },
       })
 
-      pin.querySelectorAll<HTMLElement>("[data-slide]").forEach((slide) => {
+      // Track active section during horizontal scroll
+      navbarSections.forEach((item) => {
+        const slide = pin.querySelector<HTMLElement>(`[data-slide="${item.id}"]`)
+        if (!slide) return
+
         ScrollTrigger.create({
           trigger: slide,
           start: "left center",
           end: "right center",
           containerAnimation,
           toggleClass: { targets: slide, className: "active" },
+          onEnter: () => onSectionChange?.(item.id),
+          onEnterBack: () => onSectionChange?.(item.id),
         })
       })
     },
-    { scope: sectionRef, dependencies: [navbarSections.length], revertOnUpdate: true }
+    { scope: sectionRef, dependencies: [navbarSections.length, onSectionChange], revertOnUpdate: true }
   )
 
   return (
@@ -65,7 +75,7 @@ export function HorizontalScroll() {
       <section ref={sectionRef} className='relative min-h-screen w-full overflow-hidden block xl:hidden'>
         <div ref={pinRef} className='flex h-screen w-max items-end pb-24' id='section_pin'>
           {navbarSections.map((item) => (
-            <div key={item.id} data-slide className='w-screen shrink-0 px-6'>
+            <div key={item.id} data-slide={item.id} className='w-screen shrink-0 px-6'>
               <div className='flex w-full items-center justify-center'>
                 <Link
                   href={item.paths[locale as Locale] as Pathnames}

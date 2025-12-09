@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useMemo, useRef, useState } from "react"
+import { useMemo, useRef } from "react"
 
 import { cn } from "@/lib/utils"
 import { FacebookLogoIcon, InstagramLogoIcon, XLogoIcon, YoutubeLogoIcon } from "@phosphor-icons/react/ssr"
@@ -10,6 +10,7 @@ import { AutoplayVideo } from "@/components/autoplay-video"
 import { HorizontalScroll } from "@/components/horizontal-scroll"
 import { IconCollab, IconScrollDown } from "@/components/icons"
 import { Wrapper } from "@/components/wrapper"
+import { useSectionTracker } from "@/hooks"
 import { Link } from "@/i18n/navigation"
 import type { Locale, Pathnames } from "@/i18n/routing"
 import { routeConfig } from "@/lib/constants"
@@ -17,8 +18,6 @@ import { routeConfig } from "@/lib/constants"
 export default function Home() {
   const locale = useLocale()
   const t = useTranslations("common")
-  const [activeSection, setActiveSection] = useState<string | null>(null)
-  const sectionRefs = useRef<Record<string, HTMLDivElement | null>>({})
   const sectionsWrapperRef = useRef<HTMLDivElement | null>(null)
 
   const navbarSections = useMemo(
@@ -29,43 +28,11 @@ export default function Home() {
     []
   )
 
-  useEffect(() => {
-    let isCancelled = false
-    const scrollTriggers: Array<import("gsap/ScrollTrigger").ScrollTrigger> = []
-
-    const setupScrollTriggers = async () => {
-      const gsapModule = await import("gsap")
-      const ScrollTrigger = (await import("gsap/ScrollTrigger")).ScrollTrigger
-      if (!gsapModule.default || !ScrollTrigger || isCancelled) return
-
-      gsapModule.default.registerPlugin(ScrollTrigger)
-
-      Object.entries(sectionRefs.current).forEach(([sectionId, element]) => {
-        if (!element) return
-
-        const trigger = ScrollTrigger.create({
-          trigger: element,
-          start: "top center",
-          end: "bottom center",
-          onEnter: () => setActiveSection(sectionId),
-          onEnterBack: () => setActiveSection(sectionId),
-        })
-
-        scrollTriggers.push(trigger)
-      })
-    }
-
-    setupScrollTriggers()
-
-    return () => {
-      isCancelled = true
-      scrollTriggers.forEach((trigger) => trigger.kill())
-    }
-  }, [])
-
-  const registerSectionRef = (sectionId: string) => (node: HTMLDivElement | null) => {
-    sectionRefs.current[sectionId] = node
-  }
+  // Track active section for both vertical (desktop) and horizontal (mobile) scroll
+  const { activeSection, setActiveSection, registerSectionRef } = useSectionTracker({
+    direction: "vertical",
+    scope: sectionsWrapperRef,
+  })
 
   return (
     <Wrapper>
@@ -164,7 +131,7 @@ export default function Home() {
           </div>
         ))}
       </div>
-      <HorizontalScroll />
+      <HorizontalScroll onSectionChange={setActiveSection} />
     </Wrapper>
   )
 }
