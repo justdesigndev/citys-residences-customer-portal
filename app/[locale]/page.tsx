@@ -7,6 +7,7 @@ import { FacebookLogoIcon, InstagramLogoIcon, XLogoIcon, YoutubeLogoIcon } from 
 import { useLocale, useTranslations } from "next-intl"
 
 import { AutoplayVideo } from "@/components/autoplay-video"
+import { HorizontalScroll } from "@/components/horizontal-scroll"
 import { IconCollab, IconScrollDown } from "@/components/icons"
 import { Wrapper } from "@/components/wrapper"
 import { Link } from "@/i18n/navigation"
@@ -71,12 +72,12 @@ export default function Home() {
       <div className={cn("fixed z-50 inset-0", "pt-header-height-mobile 2xl:pt-header-height")}>
         <div
           className={cn(
-            "container size-full mx-auto px-8 lg:px-8 pb-16 2xl:20 pt-8 lg:pt-20 xl:pt-8 2xl:pt-20",
+            "container size-full mx-auto px-8 lg:px-8 pb-4 lg:pb-16 2xl:20 pt-8 lg:pt-20 xl:pt-8 2xl:pt-20",
             "flex flex-col gap-4"
           )}
         >
           {/* NAVIGATION */}
-          <div className='flex flex-col gap-3 lg:gap-4 xl:gap-2 items-start'>
+          <div className='flex flex-col gap-1 lg:gap-4 xl:gap-2 items-start'>
             {navbarSections.map((item) => (
               <Link
                 href={item.paths[locale as Locale] as Pathnames}
@@ -84,7 +85,8 @@ export default function Home() {
                 key={item.id}
                 {...(item.isExternal && { target: "_blank", rel: "noopener noreferrer" })}
                 className={cn(
-                  "font-primary text-3xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-normal text-orochimaru",
+                  "font-primary text-5xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-normal text-orochimaru",
+                  "-tracking-[0.025em]",
                   "transition-colors duration-300 hover:text-tangerine-flake",
                   activeSection === item.id && "text-bricky-brick",
                   item.disabled && "pointer-events-none"
@@ -111,7 +113,7 @@ export default function Home() {
             >
               {t("lifeReimagined")}
             </span>
-            <span className='mx-2 size-6 md:mx-4 md:size-10 2xl:size-12 3xl:size-12'>
+            <span className='mx-2 size-5 md:mx-4 md:size-10 2xl:size-12 3xl:size-12'>
               <IconCollab className='text-bricky-brick' />
             </span>
             <span
@@ -145,12 +147,12 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className='flex flex-col' ref={sectionsWrapperRef}>
+      <div className='hidden xl:flex flex-col' ref={sectionsWrapperRef}>
         {navbarSections.map((item) => (
           <div
             key={item.id}
             ref={registerSectionRef(item.id)}
-            className='container mx-auto h-screen flex items-center justify-end pb-40 pt-84 lg:pt-[420px] lg:pb-48 xl:pb-16 xl:pt-16 2xl:py-20 3xl:pb-16 3xl:pt-header-height'
+            className='container mx-auto h-screen w-screen shrink-0 flex items-center justify-end pb-24 pt-84 lg:pt-[420px] lg:pb-48 xl:pb-16 xl:pt-16 2xl:py-20 3xl:pb-16 3xl:pt-header-height'
           >
             <Link
               href={item.paths[locale as Locale] as Pathnames}
@@ -162,6 +164,7 @@ export default function Home() {
           </div>
         ))}
       </div>
+      <HorizontalScroll />
     </Wrapper>
   )
 }

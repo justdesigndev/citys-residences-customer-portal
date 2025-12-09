@@ -18,9 +18,21 @@ export default function Page() {
       <section className='flex items-center justify-center flex-1'>
         <ZoomImageDialog
           dialogContent={
-            <div className='relative h-[90vh]' style={{ aspectRatio: aspectRatio }}>
-              <InnerImageZoom src={masterplan.src} zoomSrc={masterplanZoom.src} hideHint zoomPreload />
-            </div>
+            <>
+              <div className='relative h-[90vh] hidden xl:block' style={{ aspectRatio: aspectRatio }}>
+                <InnerImageZoom src={masterplan.src} zoomSrc={masterplanZoom.src} hideHint zoomPreload />
+              </div>
+              <div className='relative h-[90vh] block xl:hidden' style={{ aspectRatio: aspectRatio }}>
+                <Image
+                  src={masterplan.src}
+                  className='object-contain'
+                  alt='Masterplan'
+                  fill
+                  desktopSize='80vw'
+                  mobileSize='90vw'
+                />
+              </div>
+            </>
           }
           dialogTrigger={
             <span className='block w-full relative' style={{ aspectRatio: aspectRatio }}>
