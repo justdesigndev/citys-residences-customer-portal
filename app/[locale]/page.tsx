@@ -82,10 +82,12 @@ export default function Home() {
                 href={item.paths[locale as Locale] as Pathnames}
                 locale={locale as Locale}
                 key={item.id}
+                {...(item.isExternal && { target: "_blank", rel: "noopener noreferrer" })}
                 className={cn(
                   "font-primary text-3xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-normal text-orochimaru",
-                  "transition-colors duration-300 hover:opacity-70",
-                  activeSection === item.id && "text-bricky-brick"
+                  "transition-colors duration-300 hover:text-tangerine-flake",
+                  activeSection === item.id && "text-bricky-brick",
+                  item.disabled && "pointer-events-none"
                 )}
               >
                 {t(item.titleKey)}
@@ -93,8 +95,8 @@ export default function Home() {
             ))}
           </div>
           {/* SCROLL DOWN */}
-          <div className='relative size-12 animate-bounce-translate hidden xl:block'>
-            <IconScrollDown className='text-bricky-brick size-10 sm:size-12' />
+          <div className='relative animate-bounce-translate hidden xl:block xl:size-16'>
+            <IconScrollDown className='text-bricky-brick size-full' />
             <span className='sr-only'>Scroll Down</span>
           </div>
           {/* YASAM YENİDEN TASARLANDI */}
@@ -109,7 +111,7 @@ export default function Home() {
             >
               {t("lifeReimagined")}
             </span>
-            <span className='mx-2 size-8 md:mx-4 md:size-10 2xl:size-12 3xl:size-12'>
+            <span className='mx-2 size-6 md:mx-4 md:size-10 2xl:size-12 3xl:size-12'>
               <IconCollab className='text-bricky-brick' />
             </span>
             <span

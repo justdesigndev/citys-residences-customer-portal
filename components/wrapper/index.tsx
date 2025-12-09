@@ -1,10 +1,9 @@
 "use client"
 
-import { useLocale, useTranslations } from "next-intl"
-
 import { Header } from "@/components/header"
 import { SmoothScroll } from "@/components/smooth-scroll"
 import { cn } from "@/lib/utils"
+import { useLocale, useTranslations } from "next-intl"
 
 interface CountryData {
   isoCode: string
@@ -37,12 +36,10 @@ export function Wrapper({
 
   return (
     <>
-      <div>
-        <Header />
-        <main className={cn(className)} {...props}>
-          {children}
-        </main>
-      </div>
+      <Header />
+      <main className={cn("flex-1 flex flex-col", className)} {...props}>
+        {children}
+      </main>
       {lenis && <SmoothScroll root />}
     </>
   )

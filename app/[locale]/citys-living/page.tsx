@@ -9,35 +9,32 @@ type LocalePageParams = { params: Promise<{ locale: Locale }> }
 
 export default async function Page({ params }: LocalePageParams) {
   const { locale } = await params
-  const tCommon = await getTranslations({ locale, namespace: "common" })
+  const t = await getTranslations({ locale, namespace: "common" })
 
   return (
-    <Wrapper className='py-header-height-mobile lg:py-header-height'>
-      <div className='container mx-auto py-10 lg:py-16 flex flex-col justify-center gap-20'>
+    <Wrapper className='py-header-height-mobile 2xl:py-header-height'>
+      <div className='container mx-auto py-10 lg:py-16 flex flex-col justify-center gap-8 xl:gap-20'>
         {/* Main Title */}
-        <div className='px-8 sm:px-10 lg:px-16 xl:px-24 2xl:px-32'>
-          <div
-            className={cn(
-              "flex items-start justify-start gap-6 text-left sm:items-center flex-row lg:gap-0",
-              "sm:text-center lg:text-left"
-            )}
-          >
+        <div className='px-0 sm:px-10 lg:px-16 xl:px-24 2xl:px-32'>
+          <div className='flex items-center justify-start mt-auto'>
             <span
               className={cn(
-                "whitespace-nowrap font-primary font-medium text-bricky-brick",
-                "text-[1.25rem]/[1.15] sm:text-4xl/[1.15] lg:text-5xl/[1.15] xl:text-5xl/[1.15] 2xl:text-5xl/[1.15] 3xl:text-5xl/[1.15]",
-                "flex flex-col items-center justify-center gap-4 lg:flex-row lg:gap-0"
+                "whitespace-nowrap text-center font-primary font-medium text-bricky-brick",
+                "-tracking-[0.025em]",
+                "text-xl/[1.15] md:text-3xl/[1.15] lg:text-4xl/[1.15] xl:text-4xl/[1.15] 2xl:text-5xl/[1.15] 3xl:text-5xl/[1.15]",
+                "flex flex-col items-center justify-center gap-3 sm:gap-4 lg:flex-row lg:gap-2"
               )}
             >
-              {tCommon("lifeReimagined")}
+              {t("lifeReimagined")}
             </span>
-            <span className='mx-0 size-8 sm:mx-8 2xl:h-14 2xl:w-14 3xl:h-16 3xl:w-16'>
+            <span className='mx-3 size-6 md:mx-4 md:size-10 2xl:size-12 3xl:size-12'>
               <IconCollab className='text-bricky-brick' />
             </span>
             <span
               className={cn(
                 "whitespace-nowrap text-center font-primary font-semibold text-bricky-brick",
-                "text-[1.25rem]/[1.15] sm:text-4xl/[1.15] lg:text-5xl/[1.15] xl:text-5xl/[1.15] 2xl:text-5xl/[1.15] 3xl:text-5xl/[1.15]"
+                "-tracking-[0.015em]",
+                "text-xl/[1.15] md:text-3xl/[1.15] lg:text-4xl/[1.15] xl:text-4xl/[1.15] 2xl:text-5xl/[1.15] 3xl:text-5xl/[1.15]"
               )}
             >
               CITY&apos;S
@@ -45,7 +42,7 @@ export default async function Page({ params }: LocalePageParams) {
           </div>
         </div>
         {/* Main Content */}
-        <div className='grid grid-cols-1 gap-12 xl:grid-cols-2 xl:gap-16 px-8 sm:px-10 lg:px-16 xl:px-24 2xl:px-32'>
+        <div className='grid grid-cols-1 gap-12 xl:grid-cols-2 xl:gap-16 px-0 sm:px-10 lg:px-16 xl:px-24 2xl:px-32'>
           {/* Left Column */}
           <div className='flex flex-col gap-12 lg:gap-16'>
             {/* City's Park Section */}
