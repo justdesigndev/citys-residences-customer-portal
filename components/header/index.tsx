@@ -30,7 +30,7 @@ export function Header() {
         "before:pointer-events-none before:absolute before:top-0 before:left-0 before:right-0 before:z-20 before:h-[90%] before:bg-linear-to-b  before:from-white before:via-white before:to-transparent"
       )}
     >
-      <div className='container mx-auto flex items-center justify-between h-full z-50 relative py-2 xl:py-4'>
+      <div className='container mx-auto flex items-center justify-between h-full z-50 relative'>
         <Link href='/' locale={locale as Locale} className='block h-full aspect-square'>
           <Logo className='text-bricky-brick' />
         </Link>
