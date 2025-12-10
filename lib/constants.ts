@@ -1,5 +1,14 @@
 import { routing, type Locale, type Pathnames } from "@/i18n/routing"
 
+export const SectionId = {
+  RESIDENCE_PLAN: "residence-plan",
+  MASTERPLAN: "masterplan",
+  CITYS_LIVING: "citys-living",
+  WEBSITE: "website",
+} as const
+
+export type SectionIdType = (typeof SectionId)[keyof typeof SectionId]
+
 export type Media = {
   name: string
   aspect: () => number
@@ -76,7 +85,7 @@ export type NavigationMetadata = {
 type RouteConfig = {
   paths: Record<Locale, string>
   titleKey: string
-  id: string
+  id?: SectionIdType
   order: number
   disabled: boolean
   isExternal: boolean
@@ -91,7 +100,6 @@ export const routeConfig: Record<string, RouteConfig> = {
       en: "/",
     },
     titleKey: "navigation.home",
-    id: "home",
     order: 4,
     disabled: false,
     isExternal: false,
@@ -104,7 +112,7 @@ export const routeConfig: Record<string, RouteConfig> = {
       en: "/residence-plan",
     },
     titleKey: "navigation.residencePlan",
-    id: "residence-plan",
+    id: SectionId.RESIDENCE_PLAN,
     order: 1,
     disabled: true,
     isExternal: false,
@@ -117,7 +125,7 @@ export const routeConfig: Record<string, RouteConfig> = {
       en: "/masterplan",
     },
     titleKey: "navigation.masterplan",
-    id: "masterplan",
+    id: SectionId.MASTERPLAN,
     order: 2,
     disabled: false,
     isExternal: false,
@@ -130,7 +138,7 @@ export const routeConfig: Record<string, RouteConfig> = {
       en: "/citys-living",
     },
     titleKey: "navigation.citysLiving",
-    id: "citys-living",
+    id: SectionId.CITYS_LIVING,
     order: 3,
     disabled: false,
     isExternal: false,
@@ -143,7 +151,7 @@ export const routeConfig: Record<string, RouteConfig> = {
       en: "https://citysresidences.com",
     },
     titleKey: "navigation.website",
-    id: "website",
+    id: SectionId.WEBSITE,
     order: 5,
     disabled: false,
     isExternal: true,

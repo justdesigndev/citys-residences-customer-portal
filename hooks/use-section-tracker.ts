@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react"
 
 import { gsap, ScrollTrigger, useGSAP } from "@/components/gsap"
+import { SectionId, type SectionIdType } from "@/lib/constants"
 import type { ScrollTrigger as ScrollTriggerType } from "gsap/ScrollTrigger"
 
 export type ScrollDirection = "vertical" | "horizontal"
@@ -11,7 +12,7 @@ export interface UseSectionTrackerOptions {
   /**
    * Callback when active section changes (useful for lifting state up)
    */
-  onSectionChange?: (sectionId: string) => void
+  onSectionChange?: (sectionId: SectionIdType) => void
   /**
    * Scroll direction for detection
    * @default "vertical"
@@ -44,20 +45,20 @@ export interface UseSectionTrackerReturn {
   /**
    * Currently active section ID
    */
-  activeSection: string | null
+  activeSection: SectionIdType | null
   /**
    * Manually set the active section (useful for horizontal scroll where triggers are set up externally)
    */
-  setActiveSection: (sectionId: string | null) => void
+  setActiveSection: (sectionId: SectionIdType | null) => void
   /**
    * Register a section element ref by ID
-   * @example ref={registerSectionRef("section-1")}
+   * @example ref={registerSectionRef(SectionId.RESIDENCE_PLAN)}
    */
-  registerSectionRef: (sectionId: string) => (node: HTMLElement | null) => void
+  registerSectionRef: (sectionId: SectionIdType) => (node: HTMLElement | null) => void
   /**
    * Access to the section refs map
    */
-  sectionRefs: React.MutableRefObject<Record<string, HTMLElement | null>>
+  sectionRefs: React.MutableRefObject<Record<SectionIdType, HTMLElement | null>>
   /**
    * Manually setup triggers (call this after refs are registered if autoSetup is false)
    */
@@ -103,13 +104,13 @@ function getDefaultPositions(direction: ScrollDirection) {
 export function useSectionTracker(options: UseSectionTrackerOptions = {}): UseSectionTrackerReturn {
   const { onSectionChange, direction = "vertical", containerAnimation, start, end, autoSetup = true, scope } = options
 
-  const [activeSection, setActiveSectionState] = useState<string | null>(null)
-  const sectionRefs = useRef<Record<string, HTMLElement | null>>({})
+  const [activeSection, setActiveSectionState] = useState<SectionIdType | null>(SectionId.RESIDENCE_PLAN)
+  const sectionRefs = useRef<Record<SectionIdType, HTMLElement | null>>({} as Record<SectionIdType, HTMLElement | null>)
   const triggersRef = useRef<ScrollTriggerType[]>([])
 
   // Wrapper that calls both internal state and external callback
   const setActiveSection = useCallback(
-    (sectionId: string | null) => {
+    (sectionId: SectionIdType | null) => {
       setActiveSectionState(sectionId)
       if (sectionId) {
         onSectionChange?.(sectionId)
@@ -119,7 +120,7 @@ export function useSectionTracker(options: UseSectionTrackerOptions = {}): UseSe
   )
 
   const registerSectionRef = useCallback(
-    (sectionId: string) => (node: HTMLElement | null) => {
+    (sectionId: SectionIdType) => (node: HTMLElement | null) => {
       sectionRefs.current[sectionId] = node
     },
     []
@@ -145,8 +146,8 @@ export function useSectionTracker(options: UseSectionTrackerOptions = {}): UseSe
           trigger: element,
           start: triggerStart,
           end: triggerEnd,
-          onEnter: () => setActiveSection(sectionId),
-          onEnterBack: () => setActiveSection(sectionId),
+          onEnter: () => setActiveSection(sectionId as SectionIdType),
+          onEnterBack: () => setActiveSection(sectionId as SectionIdType),
         }
 
         // Add containerAnimation for horizontal scroll
@@ -166,6 +167,10 @@ export function useSectionTracker(options: UseSectionTrackerOptions = {}): UseSe
     () => {
       if (!autoSetup || direction !== "vertical") return
 
+      // Skip if scope element is hidden (e.g., on mobile when using display: none)
+      const scopeElement = scope?.current
+      if (scopeElement && getComputedStyle(scopeElement).display === "none") return
+
       gsap.registerPlugin(ScrollTrigger)
 
       const defaults = getDefaultPositions(direction)
@@ -179,8 +184,8 @@ export function useSectionTracker(options: UseSectionTrackerOptions = {}): UseSe
           trigger: element,
           start: triggerStart,
           end: triggerEnd,
-          onEnter: () => setActiveSection(sectionId),
-          onEnterBack: () => setActiveSection(sectionId),
+          onEnter: () => setActiveSection(sectionId as SectionIdType),
+          onEnterBack: () => setActiveSection(sectionId as SectionIdType),
         })
       })
     },

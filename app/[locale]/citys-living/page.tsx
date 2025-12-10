@@ -13,9 +13,9 @@ export default async function Page({ params }: LocalePageParams) {
 
   return (
     <Wrapper className='py-header-height-mobile 2xl:py-header-height'>
-      <div className='container mx-auto py-10 lg:py-16 flex flex-col justify-center gap-8 xl:gap-20'>
+      <div className='w-full px-8 lg:px-16 xl:px-16 py-10 lg:py-16 flex flex-col justify-center gap-8 xl:gap-20'>
         {/* Main Title */}
-        <div className='px-0 sm:px-10 lg:px-16 xl:px-24 2xl:px-32'>
+        <div className='px-0 sm:px-8 lg:px-16 xl:px-24 2xl:px-32'>
           <div className='flex items-center justify-start mt-auto'>
             <span
               className={cn(
@@ -42,7 +42,7 @@ export default async function Page({ params }: LocalePageParams) {
           </div>
         </div>
         {/* Main Content */}
-        <div className='grid grid-cols-1 gap-12 xl:grid-cols-2 xl:gap-16 px-0 sm:px-10 lg:px-16 xl:px-24 2xl:px-32'>
+        <div className='grid grid-cols-1 gap-12 xl:grid-cols-2 xl:gap-16 px-0 sm:px-8 lg:px-16 xl:px-24 2xl:px-32'>
           {/* Left Column */}
           <div className='flex flex-col gap-12 lg:gap-16'>
             {/* City's Park Section */}

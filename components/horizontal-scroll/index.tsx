@@ -8,13 +8,13 @@ import { AutoplayVideo } from "@/components/autoplay-video"
 import { gsap, ScrollTrigger, useGSAP } from "@/components/gsap"
 import { Link } from "@/i18n/navigation"
 import type { Locale, Pathnames } from "@/i18n/routing"
-import { routeConfig } from "@/lib/constants"
+import { routeConfig, type SectionIdType } from "@/lib/constants"
 
 export interface HorizontalScrollProps {
   /**
    * Callback when active section changes during horizontal scroll
    */
-  onSectionChange?: (sectionId: string) => void
+  onSectionChange?: (sectionId: SectionIdType) => void
 }
 
 export function HorizontalScroll({ onSectionChange }: HorizontalScrollProps) {
@@ -53,6 +53,7 @@ export function HorizontalScroll({ onSectionChange }: HorizontalScrollProps) {
 
       // Track active section during horizontal scroll
       navbarSections.forEach((item) => {
+        if (!item.id) return
         const slide = pin.querySelector<HTMLElement>(`[data-slide="${item.id}"]`)
         if (!slide) return
 
@@ -62,10 +63,16 @@ export function HorizontalScroll({ onSectionChange }: HorizontalScrollProps) {
           end: "right center",
           containerAnimation,
           toggleClass: { targets: slide, className: "active" },
-          onEnter: () => onSectionChange?.(item.id),
-          onEnterBack: () => onSectionChange?.(item.id),
+          onEnter: () => onSectionChange?.(item.id!),
+          onEnterBack: () => onSectionChange?.(item.id!),
         })
       })
+
+      // Set initial active section to the first item (since it's already visible on load)
+      const firstSection = navbarSections[0]
+      if (firstSection?.id) {
+        onSectionChange?.(firstSection.id)
+      }
     },
     { scope: sectionRef, dependencies: [navbarSections.length, onSectionChange], revertOnUpdate: true }
   )
@@ -75,12 +82,12 @@ export function HorizontalScroll({ onSectionChange }: HorizontalScrollProps) {
       <section ref={sectionRef} className='relative min-h-screen w-full overflow-hidden block xl:hidden'>
         <div ref={pinRef} className='flex h-screen w-max items-end pb-24' id='section_pin'>
           {navbarSections.map((item) => (
-            <div key={item.id} data-slide={item.id} className='w-screen shrink-0 px-6'>
+            <div key={item.id} data-slide={item.id} className='w-screen shrink-0 px-8'>
               <div className='flex w-full items-center justify-center'>
                 <Link
                   href={item.paths[locale as Locale] as Pathnames}
                   locale={locale as Locale}
-                  className='w-full aspect-16/12'
+                  className='w-full aspect-16/14'
                 >
                   <AutoplayVideo playbackId={item.media?.muxSrc} />
                 </Link>

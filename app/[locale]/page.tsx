@@ -39,8 +39,8 @@ export default function Home() {
       <div className={cn("fixed z-50 inset-0", "pt-header-height-mobile 2xl:pt-header-height")}>
         <div
           className={cn(
-            "container size-full mx-auto px-8 lg:px-8 pb-4 lg:pb-16 2xl:20 pt-8 lg:pt-20 xl:pt-8 2xl:pt-20",
-            "flex flex-col gap-4"
+            "w-full size-full mx-auto px-8 lg:px-16 xl:px-16 pb-4 lg:pb-16 2xl:20 pt-8 lg:pt-20 xl:pt-8 2xl:pt-20",
+            "flex flex-col gap-2 lg:gap-4"
           )}
         >
           {/* NAVIGATION */}
@@ -115,21 +115,28 @@ export default function Home() {
         </div>
       </div>
       <div className='hidden xl:flex flex-col' ref={sectionsWrapperRef}>
-        {navbarSections.map((item) => (
-          <div
-            key={item.id}
-            ref={registerSectionRef(item.id)}
-            className='container mx-auto h-screen w-screen shrink-0 flex items-center justify-end pb-24 pt-84 lg:pt-[420px] lg:pb-48 xl:pb-16 xl:pt-16 2xl:py-20 3xl:pb-16 3xl:pt-header-height'
-          >
-            <Link
-              href={item.paths[locale as Locale] as Pathnames}
-              locale={locale as Locale}
-              className='w-full xl:w-auto xl:h-full aspect-16/10 xl:aspect-16/14 2xl:aspect-16/15 3xl:aspect-16/14'
-            >
-              <AutoplayVideo playbackId={item.media?.muxSrc} />
-            </Link>
-          </div>
-        ))}
+        {navbarSections.map(
+          (item) =>
+            item.id && (
+              <div
+                key={item.id}
+                ref={registerSectionRef(item.id)}
+                className='w-screen h-screen shrink-0 flex items-center justify-end px-8 lg:px-16 xl:px-16 pb-24 pt-84 lg:pt-[420px] lg:pb-48 xl:pb-16 xl:pt-16 2xl:py-20 3xl:pb-16 3xl:pt-header-height'
+              >
+                <Link
+                  href={item.paths[locale as Locale] as Pathnames}
+                  locale={locale as Locale}
+                  {...(item.isExternal && { target: "_blank", rel: "noopener noreferrer" })}
+                  className={cn(
+                    "w-full xl:w-auto xl:h-full aspect-16/10 xl:aspect-16/14 2xl:aspect-16/15 3xl:aspect-16/14",
+                    item.disabled && "pointer-events-none"
+                  )}
+                >
+                  <AutoplayVideo playbackId={item.media?.muxSrc} />
+                </Link>
+              </div>
+            )
+        )}
       </div>
       <HorizontalScroll onSectionChange={setActiveSection} />
     </Wrapper>

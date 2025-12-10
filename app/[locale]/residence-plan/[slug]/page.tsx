@@ -17,7 +17,7 @@ export default async function Page({ params }: ResidencePlanPageParams) {
 
   return (
     <Wrapper className='py-header-height-mobile lg:py-header-height'>
-      <section className='container mx-auto px-16 py-10 lg:px-32 lg:py-14 space-y-6'>
+      <section className='w-full px-8 lg:px-16 xl:px-16 py-10 lg:py-14 space-y-6'>
         <div className='group relative overflow-hidden' data-lenis-prevent>
           <a href={plan.pdf} target='_blank' rel='noreferrer' aria-label='Planı yeni sekmede aç' className='block'>
             <iframe

@@ -219,11 +219,11 @@ export function AutoplayVideo({
           "font-primary text-white"
         )}
       >
-        <div className='w-full relative z-30 flex flex-col items-center justify-end gap-4 py-4 lg:flex-row lg:gap-0 xl:items-stretch 2xl:py-6 3xl:py-8'>
+        <div className='w-full relative z-30 flex flex-col items-center justify-end gap-4 py-4 lg:flex-row lg:gap-0 xl:items-stretch xl:py-8 2xl:py-6 3xl:py-8'>
           <div className='flex items-end justify-evenly w-full'>
             {lifeIn5Minutes.map((item, idx) => (
               <Fragment key={item.title}>
-                <div className={cn("flex items-center justify-center gap-x-1 lg:gap-x-4 xl:gap-x-2 2xl:gap-x-3")}>
+                <div className='flex items-center justify-center gap-x-1 lg:gap-x-4 xl:gap-x-2 2xl:gap-x-3'>
                   <div className='size-5 xl:size-8 3xl:size-10'>{item.icon}</div>
                   <div className='flex flex-col items-start justify-center'>
                     <div className='whitespace-nowrap font-primary text-[9px]/tight font-medium xl:text-sm/tight 3xl:text-lg/tight'>
@@ -234,7 +234,7 @@ export function AutoplayVideo({
                     </div>
                   </div>
                 </div>
-                {idx !== lifeIn5Minutes.length - 1 && <span className='block w-px h-full bg-white/30' />}
+                {idx !== lifeIn5Minutes.length - 1 && <span className='block w-px h-6 xl:h-10 bg-white/30 shrink-0' />}
               </Fragment>
             ))}
           </div>
