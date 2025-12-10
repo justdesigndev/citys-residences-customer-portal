@@ -108,7 +108,7 @@ export const routeConfig: Record<string, RouteConfig> = {
   },
   "/residence-plan": {
     paths: {
-      tr: "/residence-plan",
+      tr: "/daire-plani",
       en: "/residence-plan",
     },
     titleKey: "navigation.residencePlan",
@@ -165,6 +165,12 @@ export const pathnames = Object.entries(routeConfig).reduce((acc, [key, config])
   acc[key] = config.paths
   return acc
 }, {} as Record<string, string | { tr: string; en: string }>)
+
+// Localize dynamic residence plan detail route without exposing it in nav config.
+pathnames["/residence-plan/[slug]"] = {
+  tr: "/daire-plani/[slug]",
+  en: "/residence-plan/[slug]",
+}
 
 function getNavigationRoutes() {
   return Object.entries(routeConfig)
