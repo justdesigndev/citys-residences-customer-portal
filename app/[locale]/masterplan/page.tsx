@@ -99,6 +99,7 @@ export default function Page() {
                 exit={{ opacity: 0 }}
                 transition={{ type: "tween", duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
                 onClick={closeZoom}
+                data-lenis-prevent-touch
               >
                 <motion.div
                   className='absolute inset-0 bg-black/90'
