@@ -222,10 +222,10 @@ export function AutoplayVideo({
                 <div className='flex items-center justify-center gap-x-1 lg:gap-x-4 xl:gap-x-2 2xl:gap-x-3'>
                   <div className='size-5 xl:size-8 3xl:size-10'>{item.icon}</div>
                   <div className='flex flex-col items-start justify-center'>
-                    <div className='whitespace-nowrap font-primary text-[9px]/tight font-medium xl:text-sm/tight 3xl:text-lg/tight'>
+                    <div className='whitespace-nowrap font-primary text-[8px]/tight font-medium xl:text-sm/tight 3xl:text-lg/tight'>
                       {item.d1}
                     </div>
-                    <div className='whitespace-nowrap font-primary text-[9px]/tight font-light xl:text-sm/tight 3xl:text-lg/tight'>
+                    <div className='whitespace-nowrap font-primary text-[8px]/tight font-light xl:text-sm/tight 3xl:text-lg/tight'>
                       {item.d2}
                     </div>
                   </div>
