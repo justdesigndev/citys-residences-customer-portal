@@ -60,6 +60,7 @@ export default function Page() {
               desktopSize='80vw'
               mobileSize='90vw'
               priority
+              fetchPriority='high'
             />
             <motion.button
               type='button'
