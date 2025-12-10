@@ -42,9 +42,9 @@ export default function middleware(req: NextRequest) {
   // 2) No locale in URL → detect locale preference
   // Priority: Cookie > Geo > Default
 
-  // Geo detection
+  // Geo detection - default to "tr" (Turkish) unless explicitly from an English-speaking country
   const country = geo?.country?.toUpperCase()
-  const detectedLocale = country === "TR" ? "tr" : "en"
+  const detectedLocale = country === "TR" || !country ? "tr" : "en"
 
   // Check if cookie exists
   const userPref = req.cookies.get(LOCALE_COOKIE)?.value
