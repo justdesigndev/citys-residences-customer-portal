@@ -121,7 +121,7 @@ export default function Home() {
               <div
                 key={item.id}
                 ref={registerSectionRef(item.id)}
-                className='w-screen h-screen shrink-0 flex items-center justify-end px-8 lg:px-16 xl:px-16 pb-24 pt-84 lg:pt-[420px] lg:pb-48 xl:pb-16 xl:pt-16 2xl:py-20 3xl:pb-16 2xl:pt-header-height'
+                className='w-screen h-screen shrink-0 flex items-center justify-end px-8 lg:px-16 xl:px-16 pb-36 pt-84 lg:pt-[420px] lg:pb-48 xl:pb-16 xl:pt-16 2xl:py-20 3xl:pb-16 2xl:pt-header-height'
               >
                 <Link
                   href={item.paths[locale as Locale] as Pathnames}
