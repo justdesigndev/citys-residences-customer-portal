@@ -40,7 +40,7 @@ export default function Home() {
         <div
           className={cn(
             "w-full size-full mx-auto px-8 lg:px-16 xl:px-16 pb-4 lg:pb-16 2xl:20 pt-8 lg:pt-20 xl:pt-8 2xl:pt-20",
-            "flex flex-col gap-2 lg:gap-4"
+            "flex flex-col gap-2 lg:gap-4 3xl:gap-6"
           )}
         >
           {/* NAVIGATION */}
