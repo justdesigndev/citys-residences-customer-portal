@@ -32,8 +32,7 @@ export function Header() {
         <LocaleTransitionLink
           href='/'
           locale={locale as Locale}
-          className='block h-full w-fit'
-          style={{ aspectRatio: "122/88" }}
+          className='block size-28 xl:size-30 2xl:size-36 3xl:size-40 3xl:translate-y-4'
         >
           <Logo className='text-bricky-brick' />
         </LocaleTransitionLink>
