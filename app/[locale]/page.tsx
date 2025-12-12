@@ -56,7 +56,7 @@ export default function Home() {
                   "font-primary text-[10vw]/[1] sm:text-2xl/[1] md:text-3xl/[1] lg:text-4xl/[1] xl:text-5xl/[1] 2xl:text-6xl/[1] font-normal text-orochimaru",
                   "-tracking-[0.025em]",
                   "transition-colors duration-300 hover:text-tangerine-flake",
-                  activeSection === item.id && "text-bricky-brick",
+                  activeSection === item.id && "xl:text-bricky-brick",
                   item.disabled && "pointer-events-none"
                 )}
               >
