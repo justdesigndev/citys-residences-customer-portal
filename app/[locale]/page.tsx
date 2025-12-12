@@ -71,7 +71,7 @@ export default function Home() {
             <span className='sr-only'>Scroll Down</span>
           </div>
           {/* MOBILE VIDEO */}
-          <div className='w-full aspect-16/14 block xl:hidden'>
+          <div className='w-full aspect-video xs:aspect-16/10 xsm:aspect-16/11 sm:aspect-16/14 block xl:hidden'>
             <AutoplayVideo playbackId={residencePlanMedia.muxSrc} />
           </div>
           <div className='flex flex-col gap-3 xl:mt-auto'>
@@ -81,7 +81,7 @@ export default function Home() {
                 className={cn(
                   "whitespace-nowrap text-center font-primary font-medium text-bricky-brick",
                   "-tracking-[0.025em]",
-                  "text-lg/[1] md:text-3xl/[1] lg:text-4xl/[1] xl:text-2xl/[1] 2xl:text-3xl/[1] 3xl:text-4xl/[1]",
+                  "text-[14px]/[1] xs:text-[4vw]/[1] sm:text-xl/[1] md:text-3xl/[1] lg:text-4xl/[1] xl:text-2xl/[1] 2xl:text-3xl/[1] 3xl:text-4xl/[1]",
                   "flex flex-col items-center justify-center gap-3 sm:gap-4 lg:flex-row lg:gap-2"
                 )}
               >
@@ -99,7 +99,7 @@ export default function Home() {
                 className={cn(
                   "whitespace-nowrap text-center font-primary font-semibold text-bricky-brick",
                   "-tracking-[0.015em]",
-                  "text-lg/[1] md:text-3xl/[1] lg:text-4xl/[1] xl:text-2xl/[1] 2xl:text-3xl/[1] 3xl:text-4xl/[1]"
+                  "text-[14px]/[1] xs:text-[4vw]/[1] sm:text-xl/[1] md:text-3xl/[1] lg:text-4xl/[1] xl:text-2xl/[1] 2xl:text-3xl/[1] 3xl:text-4xl/[1]"
                 )}
               >
                 CITY&apos;S
