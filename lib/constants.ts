@@ -1,4 +1,4 @@
-import { routing, type Locale, type Pathnames } from "@/i18n/routing"
+import type { Locale, Pathnames } from "@/i18n/routing"
 
 export const SectionId = {
   RESIDENCE_PLAN: "residence-plan",
@@ -172,11 +172,14 @@ pathnames["/residence-plan/[slug]"] = {
   en: "/residence-plan/[slug]",
 }
 
+// Keep a local defaultLocale to avoid runtime import cycles with routing.ts.
+const defaultLocale: Locale = "tr"
+
 function getNavigationRoutes() {
   return Object.entries(routeConfig)
     .filter(([, config]) => config !== undefined)
     .map(([routeKey, config]) => {
-      const defaultPath = config.paths[routing.defaultLocale] || routeKey
+      const defaultPath = config.paths[defaultLocale] || routeKey
       return {
         routeKey: routeKey as Pathnames,
         titleKey: config!.titleKey,
@@ -217,7 +220,7 @@ export const getNavigationItem = (id: string, t: (key: any) => string, locale: L
 }
 
 function getLocalizedPath(routeKey: Pathnames, locale: Locale): string {
-  const pathConfig = routing.pathnames[routeKey]
+  const pathConfig = pathnames[routeKey]
 
   if (!pathConfig) {
     return routeKey
@@ -227,7 +230,7 @@ function getLocalizedPath(routeKey: Pathnames, locale: Locale): string {
     return pathConfig
   }
 
-  return pathConfig[locale] || pathConfig[routing.defaultLocale]
+  return pathConfig[locale] || pathConfig[defaultLocale]
 }
 
 function calculateRatio(width: number, height: number): number {
