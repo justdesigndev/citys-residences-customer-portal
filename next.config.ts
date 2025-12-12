@@ -17,6 +17,7 @@ const nextConfig: NextConfig = {
         hostname: "image.mux.com",
       },
     ],
+    qualities: [75, 90, 100],
   },
 }
 
