@@ -4,6 +4,9 @@ import { routing } from "./i18n/routing"
 
 const intlMiddleware = createMiddleware(routing)
 
+// Feature flag - set to false to re-enable English locale detection
+const FORCE_TURKISH_LOCALE = true
+
 const SUPPORTED_LOCALES = ["tr", "en"] as const
 const LOCALE_COOKIE = "LOCALE"
 
@@ -19,6 +22,26 @@ export default function middleware(req: NextRequest) {
   const path = nextUrl.pathname
   const localeInPath = path.split("/")[1]
 
+  // If forcing Turkish locale, redirect all requests to Turkish
+  if (FORCE_TURKISH_LOCALE) {
+    // If user is trying to access /en/*, redirect to /tr/*
+    if (localeInPath === "en") {
+      const newPath = path.replace("/en", "/tr")
+      return NextResponse.redirect(new URL(`${newPath}${nextUrl.search}`, req.url))
+    }
+
+    // If no locale in path, redirect to /tr
+    if (!SUPPORTED_LOCALES.includes(localeInPath as (typeof SUPPORTED_LOCALES)[number])) {
+      return NextResponse.redirect(new URL(`/tr${path}${nextUrl.search}`, req.url))
+    }
+
+    // If already on /tr/*, proceed normally
+    if (localeInPath === "tr") {
+      return intlMiddleware(req)
+    }
+  }
+
+  // Original locale detection logic (used when FORCE_TURKISH_LOCALE is false)
   // If URL already contains a locale
   const hasLocaleInPath = SUPPORTED_LOCALES.includes(localeInPath as (typeof SUPPORTED_LOCALES)[number])
 
