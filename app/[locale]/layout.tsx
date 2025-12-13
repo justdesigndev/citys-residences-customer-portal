@@ -4,7 +4,6 @@ import type { Metadata } from "next"
 import localFont from "next/font/local"
 import { NextIntlClientProvider } from "next-intl"
 import { getMessages, getTranslations } from "next-intl/server"
-import { ViewTransitions } from "next-view-transitions"
 import { PrefetchRoutes } from "@/components/prefetch-routes"
 
 const suisseIntl = localFont({
@@ -79,15 +78,13 @@ export default async function LocaleLayout({
   const messages = await getMessages()
 
   return (
-    <ViewTransitions>
-      <html lang={locale}>
-        <body className={`${suisseIntl.variable} antialiased`}>
-          <NextIntlClientProvider messages={messages}>
-            <PrefetchRoutes />
-            {children}
-          </NextIntlClientProvider>
-        </body>
-      </html>
-    </ViewTransitions>
+    <html lang={locale}>
+      <body className={`${suisseIntl.variable} antialiased`}>
+        <NextIntlClientProvider messages={messages}>
+          <PrefetchRoutes />
+          {children}
+        </NextIntlClientProvider>
+      </body>
+    </html>
   )
 }

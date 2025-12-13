@@ -1,12 +1,12 @@
 "use client"
 
+import Link from "next/link"
 import { useLocale } from "next-intl"
-import { Link as ViewTransitionLink } from "next-view-transitions"
 import type { ComponentProps } from "react"
 
 import { type Locale, routing } from "@/i18n/routing"
 
-type LocaleTransitionLinkProps = ComponentProps<typeof ViewTransitionLink> & {
+type LocaleTransitionLinkProps = ComponentProps<typeof Link> & {
   locale?: Locale
 }
 
@@ -26,5 +26,5 @@ export function LocaleTransitionLink({ locale: localeProp, href, ...rest }: Loca
   const locale = (localeProp ?? localeFromHook) as Locale
   const localizedHref = addLocaleToHref(href, locale, routing.locales)
 
-  return <ViewTransitionLink {...rest} href={localizedHref} />
+  return <Link {...rest} href={localizedHref} />
 }
