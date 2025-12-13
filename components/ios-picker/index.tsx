@@ -253,9 +253,45 @@ type IosPickerProps = {
 
 export const IosPicker: React.FC<IosPickerProps> = ({ items, onSelect, initialIndex = 0, loop = false, className }) => {
   const [isReady, setIsReady] = useState(false)
+  const [pickerKey, setPickerKey] = useState(() => Date.now())
+  const containerRef = useRef<HTMLDivElement>(null)
+  const wasHiddenRef = useRef(false)
+
+  // Use IntersectionObserver to detect when component becomes visible again
+  useEffect(() => {
+    const element = containerRef.current
+    if (!element) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          // Component is now visible
+          if (wasHiddenRef.current) {
+            // Was hidden before, now visible again - reset animation
+            setIsReady(false)
+            setPickerKey(Date.now())
+          }
+          wasHiddenRef.current = false
+        } else {
+          // Component is not visible (navigated away)
+          wasHiddenRef.current = true
+        }
+      },
+      { threshold: 0.1 }
+    )
+
+    observer.observe(element)
+    return () => observer.disconnect()
+  }, [])
+
+  // Track when animation has completed
+  const handleReady = useCallback(() => {
+    setIsReady(true)
+  }, [])
 
   return (
     <div
+      ref={containerRef}
       className={cn(styles.embla, className, "transition-opacity duration-500", {
         "opacity-0": !isReady,
         "opacity-100": isReady,
@@ -268,12 +304,13 @@ export const IosPicker: React.FC<IosPickerProps> = ({ items, onSelect, initialIn
       }
     >
       <IosPickerItem
+        key={pickerKey}
         items={items}
         perspective='center'
         loop={loop}
         onSelect={onSelect}
         initialIndex={initialIndex}
-        onReady={() => setIsReady(true)}
+        onReady={handleReady}
       />
     </div>
   )
