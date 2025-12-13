@@ -1,6 +1,6 @@
 "use client"
 
-import { useMemo, useRef } from "react"
+import { useMemo, useRef, useState } from "react"
 
 import { cn } from "@/lib/utils"
 import { FacebookLogoIcon, InstagramLogoIcon, XLogoIcon, YoutubeLogoIcon } from "@phosphor-icons/react/ssr"
@@ -20,6 +20,8 @@ export default function Home() {
   const locale = useLocale()
   const t = useTranslations("common")
   const sectionsWrapperRef = useRef<HTMLDivElement | null>(null)
+  // Generate a unique key on each page mount to force IosPicker remount and replay animation
+  const [pickerKey] = useState(() => Date.now())
 
   const navbarSections = useMemo(
     () =>
@@ -70,6 +72,7 @@ export default function Home() {
           </div>
           <div className='block xl:hidden'>
             <IosPicker
+              key={pickerKey}
               loop
               items={navbarSections.map((item) => ({
                 title: t(item.titleKey),
