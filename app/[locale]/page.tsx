@@ -73,7 +73,7 @@ export default function Home() {
             <span className='sr-only'>Scroll Down</span>
           </div>
           {/* MOBILE VIDEO */}
-          <div className='w-full aspect-video xs:aspect-16/10 xsm:aspect-16/11 sm:aspect-16/14 block xl:hidden'>
+          <div className='w-full aspect-video xs:aspect-16/10 xsm:aspect-16/12 sm:aspect-16/14 block xl:hidden'>
             <AutoplayVideo playbackId={residencePlanMedia.muxSrc} />
           </div>
           <div className='flex flex-col gap-3 xl:mt-auto'>
