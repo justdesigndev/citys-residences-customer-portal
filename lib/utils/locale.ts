@@ -1,10 +1,11 @@
-import { cookies } from 'next/headers'
-import { routing } from '@/i18n/routing'
+import { cookies } from "next/headers"
+import { routing } from "@/i18n/routing"
 
-const SUPPORTED_LOCALES = ['tr', 'en'] as const
-const LOCALE_COOKIE = 'LOCALE'
+// Use locales from routing configuration to keep in sync
+const SUPPORTED_LOCALES = routing.locales
+const LOCALE_COOKIE = "LOCALE"
 
-export type SupportedLocale = (typeof SUPPORTED_LOCALES)[number]
+export type SupportedLocale = (typeof routing.locales)[number]
 
 /**
  * Server-side helper to get the active locale from cookies
@@ -14,10 +15,7 @@ export async function getActiveLocale(): Promise<SupportedLocale> {
   const cookieStore = await cookies()
   const localeCookie = cookieStore.get(LOCALE_COOKIE)?.value
 
-  if (
-    localeCookie &&
-    SUPPORTED_LOCALES.includes(localeCookie as SupportedLocale)
-  ) {
+  if (localeCookie && (SUPPORTED_LOCALES as readonly string[]).includes(localeCookie)) {
     return localeCookie as SupportedLocale
   }
 
