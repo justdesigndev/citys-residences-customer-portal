@@ -65,15 +65,20 @@ export function PDFViewer({ file, title }: PDFViewerProps) {
         for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
           const page = await pdf.getPage(pageNum)
 
-          // Calculate scale to fit container width
+          // Calculate scale to fit container width, accounting for device pixel ratio
           const viewport = page.getViewport({ scale: 1.0 })
           const scale = containerWidth / viewport.width
-          const scaledViewport = page.getViewport({ scale })
+          const devicePixelRatio = window.devicePixelRatio || 1
+          const scaledViewport = page.getViewport({ scale: scale * devicePixelRatio })
 
           // Create canvas for this page
           const canvas = document.createElement("canvas")
+          // Set canvas resolution to match device pixel ratio for sharp rendering
           canvas.width = scaledViewport.width
           canvas.height = scaledViewport.height
+          // Set CSS dimensions to display at correct size
+          canvas.style.width = `${scaledViewport.width / devicePixelRatio}px`
+          canvas.style.height = `${scaledViewport.height / devicePixelRatio}px`
           canvas.className = "block w-full"
           canvas.style.marginBottom = pageNum < pdf.numPages ? "1rem" : "0"
 
