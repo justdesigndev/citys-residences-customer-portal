@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from "next/server"
 import ky from "ky"
 
-export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+export async function GET(request: NextRequest) {
   try {
-    const { id: proposalId } = await params
+    const { searchParams } = new URL(request.url)
+    const proposalId = searchParams.get("id")
 
     if (!proposalId) {
       return NextResponse.json({ error: "Proposal ID is required" }, { status: 400 })

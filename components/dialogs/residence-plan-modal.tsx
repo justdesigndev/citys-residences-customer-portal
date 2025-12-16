@@ -4,7 +4,7 @@ import { CaretLeftIcon, XIcon } from "@phosphor-icons/react"
 import { useQuery } from "@tanstack/react-query"
 import { useLenis } from "lenis/react"
 import { AnimatePresence, motion } from "motion/react"
-import { useParams } from "next/navigation"
+import { useSearchParams } from "next/navigation"
 import { useEffect } from "react"
 import { useLocale, useTranslations } from "next-intl"
 
@@ -30,14 +30,14 @@ export function ResidencePlanModal() {
   const slug = useStore((state) => state.residencePlanModalSlug)
   const setSlug = useStore((state) => state.setResidencePlanModalSlug)
   const lenis = useLenis()
-  const params = useParams()
-  const proposalId = params?.id as string
+  const searchParams = useSearchParams()
+  const proposalId = searchParams?.get("id") || null
   const locale = useLocale()
   const tCommon = useTranslations("common")
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ["proposal", proposalId],
-    queryFn: () => fetchProposalById(proposalId),
+    queryFn: () => fetchProposalById(proposalId!),
     enabled: Boolean(proposalId) && isOpen,
     staleTime: 1000 * 60 * 60, // Cache for 1 hour
   })

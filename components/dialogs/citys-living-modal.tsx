@@ -162,7 +162,7 @@ export function CitysLivingModal() {
                   <div className='flex gap-6 flex-row sm:gap-10'>
                     <div className='flex items-center gap-2 sm:gap-6 shrink-0'>
                       <h3
-                        className='text-[#5D7261] font-primary text-2xl sm:text-3xl font-medium whitespace-nowrap mb-auto'
+                        className='text-army-canvas font-primary text-2xl sm:text-3xl font-medium whitespace-nowrap mb-auto'
                         style={{
                           writingMode: "vertical-rl",
                           textOrientation: "mixed",
@@ -171,9 +171,9 @@ export function CitysLivingModal() {
                       >
                         {tLiving("park.title")}
                       </h3>
-                      <div className='w-px h-full bg-[#5D7261]' />
+                      <div className='w-px h-full bg-army-canvas' />
                     </div>
-                    <ul className='space-y-3 text-black font-primary text-sm sm:text-xl font-light'>
+                    <ul className='space-y-3 text-black font-primary text-xs sm:text-xl font-light'>
                       {parkItems.map((item) => (
                         <li key={item}>{item}</li>
                       ))}
@@ -184,7 +184,7 @@ export function CitysLivingModal() {
                   <div className='flex gap-6 flex-row sm:gap-10'>
                     <div className='flex items-center gap-2 sm:gap-6 shrink-0'>
                       <h3
-                        className='text-[#7DCECC] font-primary text-2xl sm:text-3xl font-medium whitespace-nowrap mb-auto'
+                        className='text-verve-violet font-primary text-2xl sm:text-3xl font-medium whitespace-nowrap mb-auto'
                         style={{
                           writingMode: "vertical-rl",
                           textOrientation: "mixed",
@@ -193,9 +193,9 @@ export function CitysLivingModal() {
                       >
                         {tLiving("life.title")}
                       </h3>
-                      <div className='w-px h-full bg-[#7DCECC]' />
+                      <div className='w-px h-full bg-verve-violet' />
                     </div>
-                    <ul className='space-y-3 text-black font-primary text-sm sm:text-xl font-light'>
+                    <ul className='space-y-3 text-black font-primary text-xs sm:text-xl font-light'>
                       {lifeItems.map((item, idx) => (
                         <li key={`life-${idx}`}>{item}</li>
                       ))}
@@ -218,7 +218,7 @@ export function CitysLivingModal() {
                     </h3>
                     <div className='w-px h-full bg-bricky-brick' />
                   </div>
-                  <ul className='space-y-3 text-black font-primary text-sm sm:text-xl font-light'>
+                  <ul className='space-y-3 text-black font-primary text-xs sm:text-xl font-light'>
                     {membersItems.map((item, idx) => (
                       <li key={`members-${idx}`}>{item}</li>
                     ))}

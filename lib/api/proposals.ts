@@ -30,7 +30,7 @@ export interface ProposalResponse {
  * This avoids CORS issues by proxying the request through our API
  */
 export async function fetchProposalById(proposalId: string): Promise<ProposalResponse> {
-  const response = await fetch(`/api/proposals/${proposalId}`, {
+  const response = await fetch(`/api/proposals?id=${encodeURIComponent(proposalId)}`, {
     headers: {
       Accept: "application/json",
     },
