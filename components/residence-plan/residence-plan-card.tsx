@@ -25,7 +25,6 @@ export function ResidencePlanCard({
   number,
   href = "#",
   ctaLabel = "residencePlan.ctaLabel",
-  priority = false,
   onClick,
 }: ResidencePlanCardProps) {
   const t = useTranslations("common")
@@ -40,7 +39,7 @@ export function ResidencePlanCard({
           fill
           sizes='(min-width: 1280px) 280px, (min-width: 768px) 45vw, 100vw'
           className='h-full w-full object-cover transition-transform duration-700 group-hover:scale-105'
-          priority={priority}
+          priority
         />
         <div className='absolute inset-0 bg-linear-to-t from-black/55 via-black/15 to-transparent' />
         <div className='absolute inset-0 flex flex-col justify-end py-6 lg:py-12 text-white gap-4 lg:gap-16'>

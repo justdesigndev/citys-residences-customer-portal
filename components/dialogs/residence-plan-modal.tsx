@@ -219,7 +219,6 @@ export function ResidencePlanModal() {
                           <ResidencePlanCard
                             key={`${proposal.Block}-${proposal.UnitNo}-${proposal.UnitType}`}
                             onClick={() => handleCardClick(proposalSlug)}
-                            priority={index === 0}
                             href='#'
                             image={getPlaceholderImage(index)}
                             block={proposal.Block}
